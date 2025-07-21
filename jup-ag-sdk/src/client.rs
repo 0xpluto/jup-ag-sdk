@@ -5,7 +5,7 @@ use reqwest::{
 
 /// `JupiterClient` is a client wrapper to interact with the Jupiter Aggregator APIs.
 /// It is your gateway to interact with the Jupiter exchange API
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct JupiterClient {
     pub client: Client,
     pub base_url: String,
