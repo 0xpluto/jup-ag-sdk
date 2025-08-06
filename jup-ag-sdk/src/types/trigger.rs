@@ -191,6 +191,16 @@ impl ExecuteTriggerOrder {
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+pub struct ExecuteTriggerOrderResponse {
+    pub code: u8,
+    pub signature: String,
+    pub error: Option<String>,
+    pub status: String,
+    pub order: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct CancelTriggerOrder {
     pub maker: String,
 

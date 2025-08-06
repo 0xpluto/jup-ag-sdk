@@ -1,10 +1,7 @@
 use crate::{
-    JupiterClientError,
-    error::handle_response,
-    types::{
-        CancelTriggerOrder, CancelTriggerOrders, CreateTriggerOrder, ExecuteTriggerOrder,
-        GetTriggerOrders, OrderResponse, TriggerResponse,
-    },
+    error::handle_response, types::{
+        CancelTriggerOrder, CancelTriggerOrders, CreateTriggerOrder, ExecuteTriggerOrder, ExecuteTriggerOrderResponse, GetTriggerOrders, OrderResponse, TriggerResponse
+    }, JupiterClientError
 };
 
 use super::JupiterClient;
@@ -89,7 +86,7 @@ impl JupiterClient {
     pub async fn execute_trigger_order(
         &self,
         data: &ExecuteTriggerOrder,
-    ) -> Result<TriggerResponse, JupiterClientError> {
+    ) -> Result<ExecuteTriggerOrderResponse, JupiterClientError> {
         let response = match self
             .client
             .post(format!("{}/trigger/v1/execute", self.base_url))
@@ -102,8 +99,8 @@ impl JupiterClient {
         };
 
         let response = handle_response(response).await?;
-
-        match response.json::<TriggerResponse>().await {
+        
+        match response.json::<ExecuteTriggerOrderResponse>().await {
             Ok(execute_order_response) => Ok(execute_order_response),
             Err(e) => Err(JupiterClientError::DeserializationError(e.to_string())),
         }
